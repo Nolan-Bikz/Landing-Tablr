@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablr — La réservation sans commission pour restaurants indépendants</title>
+<meta name="description" content="Tablr remplace TheFork sans vous prendre un centime par couvert. Réservations en ligne, agent IA Instagram 24h/24, rappels SMS. À partir de 49€/mois.">
+<meta property="og:title" content="Tablr — Réservations sans commission">
+<meta property="og:description" content="Le SaaS de réservation pensé pour les restaurants indépendants. Zéro commission, agent IA Instagram, gestion complète.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300;1,600;1,700&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Reset ─── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+img{display:block;max-width:100%}
+
+/* ─── Tokens ─── */
+:root{
+  --ink:#1a1a2e;
+  --gold:#C9A96E;
+  --gold-light:#F5ECD7;
+  --gold-deep:#A07840;
+  --white:#ffffff;
+  --surface:#FAFAF8;
+  --border:#E8E2D6;
+  --muted:#7A7590;
+  --green:#2D9E5F;
+  --red:#D64045;
+  --orange:#E07B39;
+  --app-bg:#F7F3EC;
+  --shadow-sm:0 2px 12px rgba(26,26,46,.06);
+  --shadow-md:0 8px 40px rgba(26,26,46,.10);
+  --shadow-lg:0 20px 80px rgba(26,26,46,.14);
+  --r:14px;
+  --r-sm:8px;
+}
+
+/* ─── Base ─── */
+body{
+  font-family:'Instrument Sans',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--white);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:Georgia,'Times New Roman',serif;
+  line-height:1.2;
+  font-weight:400;
+}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+
+/* ─── Utils ─── */
+.container{max-width:1160px;margin:0 auto;padding:0 24px}
+.gold{color:var(--gold)}
+.serif{font-family:Georgia,serif}
+
+/* ─── Navbar ─── */
+.navbar{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.navbar-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 24px;max-width:1160px;margin:0 auto;gap:2rem;
+}
+.nav-logo svg line{stroke:var(--gold)}
+.nav-logo svg text{fill:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{display:flex;align-items:center;gap:.75rem}
+.btn-ghost{
+  font-size:.88rem;font-weight:500;color:var(--ink);
+  padding:.5rem 1.1rem;border-radius:8px;
+  border:1px solid var(--border);transition:all .2s;
+}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-primary{
+  font-size:.88rem;font-weight:600;
+  background:var(--ink);color:var(--white);
+  padding:.55rem 1.25rem;border-radius:8px;
+  border:none;transition:all .2s;
+  letter-spacing:.01em;
+}
+.btn-primary:hover{background:#2e2e4e;transform:translateY(-1px);box-shadow:0 4px 16px rgba(26,26,46,.2)}
+.btn-gold{
+  font-size:.88rem;font-weight:600;
+  background:var(--gold);color:var(--white);
+  padding:.55rem 1.25rem;border-radius:8px;
+  border:none;transition:all .2s;
+}
+.btn-gold:hover{background:var(--gold-deep);transform:translateY(-1px);box-shadow:0 4px 16px rgba(201,169,110,.4)}
+.btn-lg{padding:.8rem 2rem;font-size:1rem;border-radius:10px}
+.btn-outline-white{
+  font-size:.88rem;font-weight:600;
+  background:transparent;color:var(--white);
+  padding:.55rem 1.25rem;border-radius:8px;
+  border:2px solid rgba(255,255,255,.4);
+  transition:all .2s;
+}
+.btn-outline-white:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
+
+
+/* ─── Hero ─── */
+.hero{
+  padding:6rem 0 0;
+  background:linear-gradient(180deg,#FAFAF8 0%,#fff 100%);
+  overflow:hidden;
+}
+.hero-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4rem;
+  align-items:center;
+  max-width:1160px;margin:0 auto;padding:0 24px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--gold-light);color:var(--gold-deep);
+  font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:.35rem .9rem;border-radius:100px;margin-bottom:1.5rem;
+  border:1px solid rgba(201,169,110,.3);
+}
+.hero h1{
+  font-size:3.4rem;letter-spacing:-.02em;
+  line-height:1.1;margin-bottom:1.25rem;color:var(--ink);
+}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{
+  font-size:1.08rem;color:var(--muted);line-height:1.7;
+  margin-bottom:2rem;max-width:460px;
+}
+.hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.hero-trust{
+  display:flex;align-items:center;gap:.75rem;
+  font-size:.78rem;color:var(--muted);
+}
+.hero-trust span{display:flex;align-items:center;gap:.3rem}
+.hero-trust .dot{width:4px;height:4px;border-radius:50%;background:var(--border)}
+
+/* ─── Browser Mockup ─── */
+.browser-wrap{
+  position:relative;
+  filter:drop-shadow(0 30px 80px rgba(26,26,46,.18));
+  margin-bottom:-120px;
+}
+.browser{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+.browser-bar{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.65rem 1rem;
+  background:#F0EDE8;
+  border-bottom:1px solid var(--border);
+}
+.b-dot{width:11px;height:11px;border-radius:50%}
+.b-d1{background:#FF5F57}.b-d2{background:#FEBC2E}.b-d3{background:#28C840}
+.browser-url{
+  flex:1;background:#fff;border-radius:6px;
+  padding:.2rem .65rem;font-size:.72rem;color:var(--muted);
+  border:1px solid var(--border);margin:0 .5rem;
+}
+.browser-content{background:var(--app-bg);padding:0}
+
+/* ─── App Dashboard Mockup ─── */
+.app-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem 1.25rem;background:#fff;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;gap:.5rem;
+}
+.app-nav-l{display:flex;align-items:center;gap:.65rem}
+.app-nav-divider{width:1px;height:22px;background:var(--border)}
+.app-rname{font-family:'Fraunces',Georgia,serif;font-size:.9rem;font-style:italic;color:var(--ink)}
+.app-raddr{font-size:.62rem;color:var(--muted)}
+.app-nav-r{display:flex;align-items:center;gap:.5rem}
+.app-dnav{
+  display:flex;align-items:center;gap:.3rem;
+  background:var(--app-bg);border-radius:7px;
+  padding:.3rem .6rem;border:1px solid var(--border);
+}
+.app-dnav-btn{
+  background:none;border:none;font-size:.9rem;color:var(--muted);
+  padding:.05rem .25rem;border-radius:4px;cursor:default;
+}
+.app-dnav-label{font-size:.72rem;font-weight:500;color:var(--ink);min-width:120px;text-align:center}
+.app-chip{
+  font-family:'Fraunces',Georgia,serif;font-size:.9rem;
+  color:var(--ink);min-width:40px;text-align:center;
+}
+.app-btn-sm{
+  background:none;border:1px solid var(--border);color:var(--muted);
+  padding:.25rem .65rem;border-radius:6px;font-size:.68rem;cursor:default;
+}
+.app-btn-accent{
+  background:#6B3F1F;color:#fff;border:none;
+  padding:.28rem .7rem;border-radius:6px;font-size:.68rem;cursor:default;
+}
+.app-body{padding:.85rem;display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.app-stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem}
+.app-stat{
+  background:#fff;border-radius:10px;padding:.75rem 1rem;
+  border:1px solid var(--border);box-shadow:var(--shadow-sm);
+}
+.app-stat.dark{background:var(--ink);border-color:transparent}
+.app-stat .pv{font-family:'Fraunces',Georgia,serif;font-size:1.5rem;color:var(--ink)}
+.app-stat.dark .pv{color:var(--gold)}
+.app-stat .pl{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.1rem}
+.app-stat.dark .pl{color:rgba(255,255,255,.35)}
+.svc-card{
+  background:#fff;border-radius:12px;border:1px solid var(--border);
+  overflow:hidden;box-shadow:var(--shadow-sm);
+}
+.svc-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem 1rem;border-bottom:1px solid var(--border);
+}
+.svc-title{font-family:'Fraunces',Georgia,serif;font-size:.82rem;font-style:italic}
+.badge{padding:.15rem .55rem;border-radius:100px;font-size:.62rem;font-weight:600}
+.bg{background:#E6F4ED;color:#1B4D2E}
+.bo{background:#FFF3E0;color:#7B4A10}
+.gw{padding:.6rem 1rem;border-bottom:1px solid var(--border)}
+.gm{display:flex;justify-content:space-between;font-size:.62rem;color:var(--muted);margin-bottom:.28rem}
+.gt{background:var(--border);border-radius:100px;height:4px;overflow:hidden}
+.gb{height:100%;border-radius:100px}
+.g-lo{background:var(--green)}.g-mi{background:var(--orange)}
+.slot-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.35rem 1rem;background:var(--app-bg);border-bottom:1px solid var(--border);
+}
+.slot-time{font-size:.68rem;font-weight:600;color:var(--ink)}
+.slot-cov{font-size:.62rem;color:var(--muted)}
+.ritem{
+  display:flex;align-items:center;padding:.55rem 1rem;gap:.5rem;
+  border-bottom:1px solid var(--border);
+}
+.ritem:last-child{border-bottom:none}
+.rdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dok{background:var(--green)}.dok-ring{box-shadow:0 0 0 2px var(--green)}
+.rtime{font-weight:600;font-size:.7rem;min-width:36px;color:var(--muted)}
+.rinfo{flex:1;min-width:0}
+.rname{font-weight:500;font-size:.76rem;color:var(--ink);display:flex;align-items:center;gap:.3rem}
+.rdet{font-size:.62rem;color:var(--muted);margin-top:.05rem}
+.rcov{font-size:.72rem;font-weight:600;min-width:24px;text-align:right;color:var(--ink)}
+.ractions{display:flex;gap:.2rem;flex-shrink:0}
+.btn-ok-sm{padding:.18rem .4rem;background:#E6F4ED;color:var(--green);border:none;border-radius:4px;font-size:.58rem;cursor:default}
+.btn-cx-sm{padding:.18rem .4rem;background:#FDECEA;color:var(--red);border:none;border-radius:4px;font-size:.58rem;cursor:default}
+.btn-ns-sm{padding:.18rem .4rem;background:#FFF3E0;color:var(--orange);border:none;border-radius:4px;font-size:.58rem;cursor:default}
+.badge-vip{background:#FDF6E3;color:#9B6900;border:1px solid var(--gold);padding:.08rem .4rem;border-radius:100px;font-size:.55rem;font-weight:600}
+.badge-fidele{background:#FFF3E0;color:#7B4A10;padding:.08rem .4rem;border-radius:100px;font-size:.55rem;font-weight:600}
+.badge-hab{background:#E6F4ED;color:#1B4D2E;padding:.08rem .4rem;border-radius:100px;font-size:.55rem;font-weight:600}
+.present-label{font-size:.62rem;color:var(--green);font-weight:600}
+
+
+/* ─── Stats Band ─── */
+.stats-band{
+  background:var(--ink);
+  padding:3.5rem 0;
+  margin-top:160px;
+}
+.stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2rem;text-align:center;
+}
+.stat-n{
+  font-family:Georgia,serif;font-size:3rem;font-style:italic;
+  color:var(--gold);line-height:1;margin-bottom:.4rem;
+}
+.stat-l{font-size:.83rem;color:rgba(255,255,255,.5);letter-spacing:.04em}
+
+
+/* ─── Section shared ─── */
+section{padding:5rem 0}
+.section-eyebrow{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1rem;
+}
+.section-title{
+  font-size:2.4rem;color:var(--ink);margin-bottom:1rem;
+  max-width:580px;
+}
+.section-sub{
+  font-size:1rem;color:var(--muted);line-height:1.7;
+  max-width:520px;margin-bottom:3rem;
+}
+.section-header{margin-bottom:3.5rem}
+.section-header.centered{text-align:center}
+.section-header.centered .section-title,.section-header.centered .section-sub{margin:0 auto 1rem}
+
+
+/* ─── Features ─── */
+.features{background:var(--surface)}
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+}
+.feat-card{
+  background:#fff;border-radius:var(--r);padding:2rem;
+  border:1px solid var(--border);
+  transition:box-shadow .25s,transform .25s;
+}
+.feat-card:hover{
+  box-shadow:var(--shadow-md);
+  transform:translateY(-3px);
+}
+.feat-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--gold-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1.25rem;
+}
+.feat-title{
+  font-family:Georgia,serif;font-size:1.15rem;
+  color:var(--ink);margin-bottom:.6rem;
+}
+.feat-body{font-size:.88rem;color:var(--muted);line-height:1.65}
+
+
+/* ─── Showcase ─── */
+.showcase{background:#fff;overflow:hidden}
+.showcase-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
+}
+.showcase-inner.reverse{direction:rtl}
+.showcase-inner.reverse > *{direction:ltr}
+.showcase-text .section-title{max-width:420px}
+.showcase-points{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:1rem}
+.showcase-points li{
+  display:flex;align-items:flex-start;gap:.85rem;
+  font-size:.92rem;color:var(--muted);line-height:1.55;
+}
+.chk{
+  width:22px;height:22px;border-radius:6px;
+  background:var(--gold-light);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;margin-top:.05rem;color:var(--gold-deep);font-weight:700;
+}
+
+
+/* ─── Phone Mockup ─── */
+.phone-wrap{
+  display:flex;justify-content:center;align-items:center;
+  padding:2rem 0;
+}
+.phone{
+  width:300px;
+  background:#1a1a2e;
+  border-radius:44px;
+  padding:12px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06),
+    0 30px 80px rgba(26,26,46,.35),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  position:relative;
+}
+.phone::before{
+  content:'';position:absolute;top:18px;left:50%;transform:translateX(-50%);
+  width:80px;height:6px;background:rgba(255,255,255,.12);border-radius:100px;
+}
+.phone-screen{
+  background:#000;border-radius:34px;overflow:hidden;
+  padding-top:22px;
+}
+.ig-header{
+  background:#000;padding:.6rem 1rem .4rem;
+  display:flex;align-items:center;gap:.75rem;
+}
+.ig-back{color:#fff;font-size:1.1rem;opacity:.8}
+.ig-avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;color:#fff;font-weight:700;
+}
+.ig-info{flex:1}
+.ig-name{font-size:.78rem;font-weight:600;color:#fff}
+.ig-status{font-size:.62rem;color:rgba(255,255,255,.5)}
+.ig-msgs{
+  background:#000;padding:.6rem .75rem;
+  display:flex;flex-direction:column;gap:.5rem;
+  min-height:380px;
+}
+.msg{max-width:80%;padding:.5rem .7rem;border-radius:14px;font-size:.7rem;line-height:1.4}
+.msg.from{
+  background:#262626;color:#fff;border-radius:14px 14px 14px 4px;
+  align-self:flex-start;
+}
+.msg.to{
+  background:#0095f6;color:#fff;border-radius:14px 14px 4px 14px;
+  align-self:flex-end;
+}
+.msg.ai{
+  background:linear-gradient(135deg,rgba(201,169,110,.15),rgba(201,169,110,.25));
+  color:#fff;border:1px solid rgba(201,169,110,.3);
+  border-radius:14px 14px 14px 4px;
+  align-self:flex-start;
+}
+.msg-time{font-size:.55rem;color:rgba(255,255,255,.35);margin-top:.2rem;text-align:right}
+.ai-tag{
+  font-size:.55rem;background:rgba(201,169,110,.3);color:var(--gold);
+  padding:.1rem .35rem;border-radius:100px;display:inline-block;margin-bottom:.2rem;
+}
+.ig-input{
+  background:#1c1c1c;padding:.65rem 1rem;display:flex;align-items:center;gap:.5rem;
+}
+.ig-input-field{
+  flex:1;background:#262626;border:none;border-radius:20px;
+  padding:.35rem .8rem;font-size:.68rem;color:rgba(255,255,255,.4);
+}
+.ig-send{width:24px;height:24px;background:#0095f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff}
+
+
+/* ─── Pricing ─── */
+.pricing{background:var(--surface)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.price-card{
+  background:#fff;border-radius:var(--r);padding:2rem;
+  border:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:relative;transition:box-shadow .25s;
+}
+.price-card:hover{box-shadow:var(--shadow-md)}
+.price-card.featured{
+  border:2px solid var(--gold);
+  box-shadow:0 0 0 4px rgba(201,169,110,.08);
+}
+.popular-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:var(--gold);color:#fff;font-size:.7rem;font-weight:700;
+  padding:.28rem .9rem;border-radius:100px;white-space:nowrap;
+  letter-spacing:.04em;
+}
+.price-name{
+  font-family:Georgia,serif;font-size:1.3rem;color:var(--ink);margin-bottom:.35rem;
+}
+.price-desc{font-size:.83rem;color:var(--muted);line-height:1.55;margin-bottom:1.5rem}
+.price-amount{
+  display:flex;align-items:baseline;gap:.3rem;margin-bottom:1.5rem;
+}
+.price-n{font-family:Georgia,serif;font-size:2.6rem;color:var(--ink)}
+.price-period{font-size:.82rem;color:var(--muted)}
+.price-contact{font-family:Georgia,serif;font-size:2rem;font-style:italic;color:var(--gold)}
+.price-features{list-style:none;flex:1;display:flex;flex-direction:column;gap:.65rem;margin-bottom:2rem}
+.price-features li{
+  display:flex;align-items:flex-start;gap:.65rem;font-size:.85rem;color:var(--muted);
+}
+.price-features li .chk{background:var(--gold-light);color:var(--gold-deep)}
+.price-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.75rem;line-height:1.5}
+
+
+/* ─── Testimonials ─── */
+.testi{background:#fff}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.testi-card{
+  background:var(--surface);border-radius:var(--r);padding:1.75rem;
+  border:1px solid var(--border);
+}
+.testi-stars{color:var(--gold);font-size:.9rem;margin-bottom:1rem;letter-spacing:.1rem}
+.testi-text{font-size:.92rem;color:var(--ink);line-height:1.65;font-style:italic;margin-bottom:1.25rem}
+.testi-author{display:flex;align-items:center;gap:.75rem}
+.testi-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--ink);display:flex;align-items:center;justify-content:center;
+  font-family:Georgia,serif;font-style:italic;font-size:1rem;color:var(--gold);
+  flex-shrink:0;
+}
+.testi-name{font-size:.85rem;font-weight:600;color:var(--ink)}
+.testi-role{font-size:.75rem;color:var(--muted)}
+
+
+/* ─── CTA section ─── */
+.cta-section{
+  background:var(--ink);
+  padding:6rem 0;
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;
+  top:-80px;right:-80px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(201,169,110,.12) 0%,transparent 70%);
+  border-radius:50%;
+}
+.cta-inner{position:relative;z-index:1;text-align:center}
+.cta-inner h2{
+  font-family:Georgia,serif;font-size:2.8rem;color:#fff;
+  margin-bottom:1rem;
+}
+.cta-inner h2 em{color:var(--gold);font-style:italic}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,.5);max-width:480px;margin:0 auto 2.5rem;line-height:1.65}
+
+
+/* ─── Contact ─── */
+.contact{background:var(--surface)}
+.contact-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;
+}
+.contact-form{background:#fff;border-radius:var(--r);padding:2.5rem;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-group label{font-size:.82rem;font-weight:600;color:var(--ink)}
+.form-group input,.form-group textarea,.form-group select{
+  padding:.65rem .9rem;border:1px solid var(--border);border-radius:8px;
+  font-family:inherit;font-size:.88rem;color:var(--ink);
+  background:#fff;transition:border .2s,box-shadow .2s;
+  outline:none;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,169,110,.12);
+}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-submit{
+  width:100%;padding:.75rem;border:none;border-radius:8px;
+  background:var(--ink);color:#fff;font-size:.95rem;font-weight:600;
+  font-family:inherit;cursor:pointer;transition:all .2s;
+  margin-top:.5rem;
+}
+.form-submit:hover{background:#2e2e4e;transform:translateY(-1px)}
+.contact-info{padding-top:1rem}
+.contact-info h3{font-family:Georgia,serif;font-size:1.6rem;margin-bottom:.75rem}
+.contact-info p{font-size:.92rem;color:var(--muted);line-height:1.7;margin-bottom:2rem}
+.contact-items{display:flex;flex-direction:column;gap:1rem}
+.contact-item{display:flex;align-items:flex-start;gap:.85rem;font-size:.88rem;color:var(--muted)}
+.contact-item-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--gold-light);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1rem;
+}
+
+
+/* ─── Footer ─── */
+footer{
+  background:var(--ink);
+  padding:3rem 0 2rem;
+}
+.footer-inner{
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding-bottom:2.5rem;margin-bottom:1.5rem;
+}
+.footer-brand p{font-size:.83rem;color:rgba(255,255,255,.4);margin-top:.75rem;line-height:1.65;max-width:260px}
+.footer-col h4{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-bottom:1rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-col ul li a{font-size:.83rem;color:rgba(255,255,255,.45);transition:color .2s}
+.footer-col ul li a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem}
+.footer-bottom p{font-size:.75rem;color:rgba(255,255,255,.25)}
+.footer-bottom a{font-size:.75rem;color:rgba(255,255,255,.3);transition:color .2s}
+.footer-bottom a:hover{color:rgba(255,255,255,.6)}
+
+
+/* ─── Divider ─── */
+.divider{border:none;border-top:1px solid var(--border)}
+
+/* ─── Scroll reveal ─── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+
+
+/* ─── Responsive ─── */
+@media(max-width:1024px){
+  .hero h1{font-size:2.6rem}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr 1fr}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:1.5rem}
+}
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
+  .hero{padding:4rem 0 0}
+  .hero h1{font-size:2.2rem}
+  .browser-wrap{margin-bottom:-60px}
+  .stats-band{margin-top:90px}
+  .showcase-inner,.showcase-inner.reverse{grid-template-columns:1fr;gap:3rem;direction:ltr}
+  .contact-inner{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .footer-col{display:none}
+  .testi-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .app-body{grid-template-columns:1fr}
+  .app-stats{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ─────────────────── NAVBAR ─────────────────── -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="#" class="nav-logo" aria-label="Tablr">
+      <svg width="72" height="22" viewBox="40 30 320 62" xmlns="http://www.w3.org/2000/svg">
+        <line x1="40" y1="38" x2="360" y2="38" stroke-width="1.5"/>
+        <text x="200" y="78" font-family="Georgia, serif" font-size="42" font-weight="400" text-anchor="middle" letter-spacing="8">TABLR</text>
+        <line x1="40" y1="90" x2="360" y2="90" stroke-width="1.5"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <a href="#fonctionnalites">Fonctionnalités</a>
+      <a href="#tarifs">Tarifs</a>
+      <a href="#temoignages">Témoignages</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#contact" class="btn-ghost">Démo gratuite</a>
+      <a href="#contact" class="btn-primary">Commencer →</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ─────────────────── HERO ─────────────────── -->
+<section class="hero">
+  <div class="hero-inner">
+    <!-- Text -->
+    <div>
+      <div class="hero-eyebrow">
+        <span>✦</span> Alternative à TheFork
+      </div>
+      <h1>Réservations sans <em>commission</em>, avec IA 24h/24</h1>
+      <p class="hero-sub">
+        Tablr donne aux restaurants indépendants une page de réservation professionnelle, un agenda digital complet et un agent IA qui répond à vos DMs Instagram — sans vous prendre un centime par couvert.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary btn-lg">Essayer gratuitement →</a>
+        <a href="#fonctionnalites" class="btn-ghost btn-lg">Voir comment ça marche</a>
+      </div>
+      <div class="hero-trust">
+        <span>✓ Aucune commission</span>
+        <span class="dot"></span>
+        <span>✓ Sans engagement</span>
+        <span class="dot"></span>
+        <span>✓ Démo en 15 min</span>
+      </div>
+    </div>
+
+    <!-- Browser Mockup -->
+    <div class="browser-wrap reveal">
+      <div class="browser">
+        <div class="browser-bar">
+          <div class="b-dot b-d1"></div>
+          <div class="b-dot b-d2"></div>
+          <div class="b-dot b-d3"></div>
+          <div class="browser-url">tablr.fr/le-petit-bistrot/dashboard</div>
+        </div>
+        <div class="browser-content">
+
+          <!-- App Nav -->
+          <div class="app-nav">
+            <div class="app-nav-l">
+              <svg width="56" height="17" viewBox="40 30 320 62" xmlns="http://www.w3.org/2000/svg">
+                <line x1="40" y1="38" x2="360" y2="38" stroke="#C9A96E" stroke-width="1.5"/>
+                <text x="200" y="78" font-family="Georgia, serif" font-size="42" fill="#1a1a2e" text-anchor="middle" letter-spacing="8">TABLR</text>
+                <line x1="40" y1="90" x2="360" y2="90" stroke="#C9A96E" stroke-width="1.5"/>
+              </svg>
+              <div class="app-nav-divider"></div>
+              <div>
+                <div class="app-rname">Le Petit Bistrot</div>
+                <div class="app-raddr">📍 14 rue des Abbesses, Paris 18</div>
+              </div>
+            </div>
+            <div class="app-nav-r">
+              <div class="app-dnav">
+                <button class="app-dnav-btn">‹</button>
+                <span class="app-dnav-label">Aujourd'hui — 30 mars</span>
+                <button class="app-dnav-btn">›</button>
+              </div>
+              <div class="app-chip">12:34</div>
+              <button class="app-btn-accent">+ Réservation</button>
+              <button class="app-btn-sm">📊 Stats</button>
+              <button class="app-btn-sm">⚙️</button>
+            </div>
+          </div>
+
+          <!-- App Body -->
+          <div class="app-body">
+
+            <!-- Stats -->
+            <div class="app-stats">
+              <div class="app-stat dark">
+                <div class="pv">42</div>
+                <div class="pl">Couverts du jour</div>
+              </div>
+              <div class="app-stat">
+                <div class="pv">24</div>
+                <div class="pl">Déjeuner</div>
+              </div>
+              <div class="app-stat">
+                <div class="pv">18</div>
+                <div class="pl">Dîner</div>
+              </div>
+              <div class="app-stat">
+                <div class="pv">11</div>
+                <div class="pl">Réservations</div>
+              </div>
+            </div>
+
+            <!-- Service Déjeuner -->
+            <div class="svc-card">
+              <div class="svc-head">
+                <div style="display:flex;align-items:center;gap:.4rem">
+                  <span>🌞</span>
+                  <span class="svc-title">Service Déjeuner</span>
+                </div>
+                <span class="badge bo">24 / 32 couverts</span>
+              </div>
+              <div class="gw">
+                <div class="gm"><span>Occupation</span><span>75%</span></div>
+                <div class="gt"><div class="gb g-mi" style="width:75%"></div></div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 12:00</span>
+                <span class="slot-cov">6 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok" style="box-shadow:0 0 0 2px #2D9E5F"></div>
+                <div class="rtime">12:00</div>
+                <div class="rinfo">
+                  <div class="rname">Martin Dupont <span class="badge-fidele">Fidèle</span></div>
+                  <div class="rdet">06 12 34 56 78</div>
+                </div>
+                <div class="rcov">👥 2</div>
+                <div class="ractions"><span class="present-label">✓ Présent</span></div>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">12:00</div>
+                <div class="rinfo">
+                  <div class="rname">Sophie Laurent</div>
+                  <div class="rdet">06 98 76 54 32</div>
+                </div>
+                <div class="rcov">👥 4</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 12:30</span>
+                <span class="slot-cov">5 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok" style="box-shadow:0 0 0 2px #2D9E5F"></div>
+                <div class="rtime">12:30</div>
+                <div class="rinfo">
+                  <div class="rname">Jean-Pierre Moreau <span class="badge-vip">VIP</span></div>
+                  <div class="rdet">06 55 44 33 22</div>
+                </div>
+                <div class="rcov">👥 2</div>
+                <div class="ractions"><span class="present-label">✓ Présent</span></div>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">12:30</div>
+                <div class="rinfo">
+                  <div class="rname">Céline Dubois</div>
+                  <div class="rdet">07 11 22 33 44 · Allergie noix</div>
+                </div>
+                <div class="rcov">👥 3</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-ns-sm">Absent</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 13:00</span>
+                <span class="slot-cov">9 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">13:00</div>
+                <div class="rinfo">
+                  <div class="rname">Antoine Bernard</div>
+                  <div class="rdet">06 77 88 99 00</div>
+                </div>
+                <div class="rcov">👥 6</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">13:00</div>
+                <div class="rinfo">
+                  <div class="rname">Marie Leclerc <span class="badge-hab">Habitué</span></div>
+                  <div class="rdet">06 66 55 44 33</div>
+                </div>
+                <div class="rcov">👥 3</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Dîner -->
+            <div class="svc-card">
+              <div class="svc-head">
+                <div style="display:flex;align-items:center;gap:.4rem">
+                  <span>🌙</span>
+                  <span class="svc-title">Service Dîner</span>
+                </div>
+                <span class="badge bg">18 / 32 couverts</span>
+              </div>
+              <div class="gw">
+                <div class="gm"><span>Occupation</span><span>56%</span></div>
+                <div class="gt"><div class="gb g-lo" style="width:56%"></div></div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 19:00</span>
+                <span class="slot-cov">2 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok" style="box-shadow:0 0 0 2px #2D9E5F"></div>
+                <div class="rtime">19:00</div>
+                <div class="rinfo">
+                  <div class="rname">Isabelle Petit</div>
+                  <div class="rdet">06 22 33 44 55</div>
+                </div>
+                <div class="rcov">👥 2</div>
+                <div class="ractions"><span class="present-label">✓ Présent</span></div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 19:30</span>
+                <span class="slot-cov">6 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">19:30</div>
+                <div class="rinfo">
+                  <div class="rname">François Martin <span class="badge-vip">VIP</span></div>
+                  <div class="rdet">06 44 55 66 77</div>
+                </div>
+                <div class="rcov">👥 4</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">19:30</div>
+                <div class="rinfo">
+                  <div class="rname">Laura Simon</div>
+                  <div class="rdet">07 88 77 66 55</div>
+                </div>
+                <div class="rcov">👥 2</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-ns-sm">Absent</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 20:00</span>
+                <span class="slot-cov">4 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">20:00</div>
+                <div class="rinfo">
+                  <div class="rname">Nicolas Garnier <span class="badge-hab">Habitué</span></div>
+                  <div class="rdet">06 11 00 99 88</div>
+                </div>
+                <div class="rcov">👥 4</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 20:30</span>
+                <span class="slot-cov">3 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">20:30</div>
+                <div class="rinfo">
+                  <div class="rname">Amélie Roux</div>
+                  <div class="rdet">06 33 22 11 00 · Table fenêtre svp</div>
+                </div>
+                <div class="rcov">👥 3</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-ns-sm">Absent</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+
+              <div class="slot-hd">
+                <span class="slot-time">⏱ 21:00</span>
+                <span class="slot-cov">3 / 12 couverts</span>
+              </div>
+              <div class="ritem">
+                <div class="rdot dok"></div>
+                <div class="rtime">21:00</div>
+                <div class="rinfo">
+                  <div class="rname">Thomas Blanc</div>
+                  <div class="rdet">07 55 66 77 88</div>
+                </div>
+                <div class="rcov">👥 3</div>
+                <div class="ractions">
+                  <button class="btn-ok-sm">✓ Arrivé</button>
+                  <button class="btn-cx-sm">Annuler</button>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /app-body -->
+        </div><!-- /browser-content -->
+      </div><!-- /browser -->
+    </div><!-- /browser-wrap -->
+  </div><!-- /hero-inner -->
+</section>
+
+
+<!-- ─────────────────── STATS BAND ─────────────────── -->
+<div class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div>
+        <div class="stat-n reveal">0 €</div>
+        <div class="stat-l">Commission par couvert</div>
+      </div>
+      <div>
+        <div class="stat-n reveal">24/7</div>
+        <div class="stat-l">Agent IA Instagram actif</div>
+      </div>
+      <div>
+        <div class="stat-n reveal">&lt; 15 min</div>
+        <div class="stat-l">Pour être en ligne</div>
+      </div>
+      <div>
+        <div class="stat-n reveal">∞</div>
+        <div class="stat-l">Réservations incluses</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─────────────────── FEATURES ─────────────────── -->
+<section class="features" id="fonctionnalites">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-eyebrow">Fonctionnalités</div>
+      <h2 class="section-title">Tout ce dont votre salle a besoin</h2>
+      <p class="section-sub">Un outil pensé pour les équipes en salle, pas pour les équipes tech. Simple, rapide, complet.</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feat-card reveal">
+        <div class="feat-icon">📅</div>
+        <div class="feat-title">Agenda en temps réel</div>
+        <p class="feat-body">Vue journalière par service (midi / soir), créneaux horaires, taux d'occupation et statuts de chaque couvert d'un coup d'œil.</p>
+      </div>
+
+      <div class="feat-card reveal">
+        <div class="feat-icon">🔗</div>
+        <div class="feat-title">Page de réservation publique</div>
+        <p class="feat-body">Une URL à votre image à partager sur Instagram, Google ou votre site. Vos clients réservent en moins de 60 secondes, sans application à télécharger.</p>
+      </div>
+
+      <div class="feat-card reveal">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-title">Agent IA Instagram</div>
+        <p class="feat-body">L'IA répond automatiquement à vos DMs Instagram pour prendre des réservations, répondre aux questions sur les horaires et envoyer le lien de réservation — même à 23h.</p>
+      </div>
+
+      <div class="feat-card reveal">
+        <div class="feat-icon">💬</div>
+        <div class="feat-title">Rappels SMS automatiques</div>
+        <p class="feat-body">Un SMS de rappel la veille, un message de confirmation à la réservation. Réduisez les no-shows sans lever le petit doigt.</p>
+      </div>
+
+      <div class="feat-card reveal">
+        <div class="feat-icon">👥</div>
+        <div class="feat-title">Carnet clients & fidélité</div>
+        <p class="feat-body">Chaque client est reconnu à sa prochaine visite. Badges Nouveau, Habitué, Fidèle, VIP selon la fréquence. Notes personnalisées visibles en salle.</p>
+      </div>
+
+      <div class="feat-card reveal">
+        <div class="feat-icon">📊</div>
+        <div class="feat-title">Statistiques & rapports</div>
+        <p class="feat-body">Taux de remplissage, no-shows, pics d'affluence, clients les plus fidèles. Prenez des décisions éclairées sur vos horaires et votre capacité.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────── SHOWCASE : Dashboard ─────────────────── -->
+<section class="showcase">
+  <div class="container">
+    <div class="showcase-inner">
+      <div class="showcase-text">
+        <div class="section-eyebrow">Le dashboard</div>
+        <h2 class="section-title">Votre salle, dans votre poche</h2>
+        <p class="section-sub" style="margin-bottom:1rem">
+          Tout votre service s'affiche en un regard. Naviguez d'un jour à l'autre, marquez les arrivées d'une pression, gérez les absences en temps réel — depuis n'importe quel appareil.
+        </p>
+        <ul class="showcase-points">
+          <li><span class="chk">✓</span> Vue bi-service (déjeuner / dîner) avec taux d'occupation live</li>
+          <li><span class="chk">✓</span> Actions en un clic : Arrivé · Absent · Annuler</li>
+          <li><span class="chk">✓</span> Badges de fidélité visibles directement sur chaque réservation</li>
+          <li><span class="chk">✓</span> Mode sombre, responsive mobile et tablette</li>
+          <li><span class="chk">✓</span> Navigation par date avec raccourci "Aujourd'hui"</li>
+        </ul>
+      </div>
+
+      <!-- Mini mockup 2 : booking public -->
+      <div class="reveal" style="perspective:1200px">
+        <div style="transform:rotateY(-4deg) rotateX(2deg);border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-lg)">
+          <!-- mini booking page -->
+          <div style="background:#F7F3EC;padding:1rem">
+            <!-- booking nav -->
+            <div style="background:#fff;border-radius:10px;padding:.65rem 1rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;border:1px solid var(--border)">
+              <svg width="48" height="14" viewBox="40 30 320 62" xmlns="http://www.w3.org/2000/svg">
+                <line x1="40" y1="38" x2="360" y2="38" stroke="#C9A96E" stroke-width="1.5"/>
+                <text x="200" y="78" font-family="Georgia, serif" font-size="42" fill="#1a1a2e" text-anchor="middle" letter-spacing="8">TABLR</text>
+                <line x1="40" y1="90" x2="360" y2="90" stroke="#C9A96E" stroke-width="1.5"/>
+              </svg>
+              <div style="font-family:Georgia,serif;font-size:.8rem;font-style:italic;color:#1a1a2e">Le Petit Bistrot</div>
+            </div>
+            <!-- booking card -->
+            <div style="background:#fff;border-radius:10px;border:1px solid var(--border);padding:1.1rem">
+              <div style="font-family:Georgia,serif;font-size:1.1rem;color:#1a1a2e;margin-bottom:.3rem">Réserver une table</div>
+              <div style="font-size:.72rem;color:#7A7590;margin-bottom:1rem">Lundi 30 mars 2026</div>
+              <!-- covers selector -->
+              <div style="font-size:.72rem;font-weight:600;color:#1a1a2e;margin-bottom:.5rem">Nombre de couverts</div>
+              <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.85rem">
+                <div style="width:34px;height:34px;border-radius:8px;background:#F5ECD7;border:1.5px solid #C9A96E;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:600;color:#A07840">2</div>
+                <div style="width:34px;height:34px;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#7A7590">3</div>
+                <div style="width:34px;height:34px;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#7A7590">4</div>
+                <div style="width:34px;height:34px;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#7A7590">5</div>
+                <div style="width:34px;height:34px;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#7A7590">6</div>
+              </div>
+              <!-- time slots -->
+              <div style="font-size:.72rem;font-weight:600;color:#1a1a2e;margin-bottom:.5rem">Créneaux disponibles — Déjeuner</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.4rem;margin-bottom:.85rem">
+                <div style="padding:.45rem;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;text-align:center;font-size:.72rem;color:#7A7590">12:00</div>
+                <div style="padding:.45rem;border-radius:8px;background:#F5ECD7;border:1.5px solid #C9A96E;text-align:center;font-size:.72rem;font-weight:600;color:#A07840">12:30 ✓</div>
+                <div style="padding:.45rem;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;text-align:center;font-size:.72rem;color:#7A7590">13:00</div>
+                <div style="padding:.45rem;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;text-align:center;font-size:.72rem;color:#7A7590">13:30</div>
+                <div style="padding:.45rem;border-radius:8px;background:#FDECEA;border:1px solid #F5C6CB;text-align:center;font-size:.72rem;color:#7A7590">14:00 ×</div>
+                <div style="padding:.45rem;border-radius:8px;background:#F5F5F5;border:1px solid #E8E2D6;text-align:center;font-size:.72rem;color:#7A7590">14:30</div>
+              </div>
+              <!-- form -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem">
+                <div style="background:#F5F5F5;border:1px solid #E8E2D6;border-radius:6px;padding:.45rem .65rem;font-size:.72rem;color:#7A7590">Prénom Nom</div>
+                <div style="background:#F5F5F5;border:1px solid #E8E2D6;border-radius:6px;padding:.45rem .65rem;font-size:.72rem;color:#7A7590">Téléphone</div>
+              </div>
+              <div style="background:#1a1a2e;color:#fff;border-radius:8px;padding:.6rem;text-align:center;font-size:.78rem;font-weight:600">Réserver ce créneau →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────── SHOWCASE : Instagram AI ─────────────────── -->
+<section class="showcase" style="background:var(--surface)">
+  <div class="container">
+    <div class="showcase-inner reverse">
+      <div class="showcase-text">
+        <div class="section-eyebrow">Agent IA Instagram</div>
+        <h2 class="section-title">Votre meilleur serveur ne dort jamais</h2>
+        <p class="section-sub" style="margin-bottom:1rem">
+          Un client vous envoie un DM Instagram à 23h pour réserver ? L'IA Tablr répond, prend les informations, vérifie les disponibilités et confirme la réservation — sans que vous n'ayez à lever le petit doigt.
+        </p>
+        <ul class="showcase-points">
+          <li><span class="chk">✓</span> Connexion sécurisée à votre compte Instagram Pro</li>
+          <li><span class="chk">✓</span> Détecte automatiquement les demandes de réservation</li>
+          <li><span class="chk">✓</span> Connaît vos horaires, services et disponibilités en temps réel</li>
+          <li><span class="chk">✓</span> La réservation apparaît instantanément dans votre dashboard</li>
+          <li><span class="chk">✓</span> Vous gardez la main et pouvez intervenir à tout moment</li>
+        </ul>
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="phone-wrap reveal">
+        <div class="phone">
+          <div class="phone-screen">
+            <!-- Instagram header -->
+            <div class="ig-header">
+              <span class="ig-back">‹</span>
+              <div class="ig-avatar">LB</div>
+              <div class="ig-info">
+                <div class="ig-name">Le Petit Bistrot</div>
+                <div class="ig-status">Répond habituellement sous quelques minutes</div>
+              </div>
+              <span style="color:#fff;font-size:1rem;opacity:.6">📞</span>
+            </div>
+
+            <!-- Messages -->
+            <div class="ig-msgs">
+              <div class="msg from">
+                Bonsoir, est-ce que vous avez une table pour 2 vendredi soir ?
+                <div class="msg-time">23:14</div>
+              </div>
+
+              <div class="msg ai">
+                <div class="ai-tag">✦ Tablr IA</div><br>
+                Bonsoir ! Avec plaisir 😊<br><br>
+                Nous avons encore de la disponibilité vendredi soir. Quel créneau vous conviendrait ?<br><br>
+                • 19h30 – 2 places<br>
+                • 20h00 – 2 places<br>
+                • 20h30 – 2 places
+                <div class="msg-time">23:14</div>
+              </div>
+
+              <div class="msg from">
+                20h00 ça serait parfait !
+                <div class="msg-time">23:15</div>
+              </div>
+
+              <div class="msg ai">
+                <div class="ai-tag">✦ Tablr IA</div><br>
+                Parfait ! Pour confirmer, pouvez-vous m'indiquer votre prénom et un numéro de téléphone ?
+                <div class="msg-time">23:15</div>
+              </div>
+
+              <div class="msg from">
+                Clara Fontaine, 06 12 34 56 78
+                <div class="msg-time">23:16</div>
+              </div>
+
+              <div class="msg ai">
+                <div class="ai-tag">✦ Tablr IA</div><br>
+                ✅ C'est confirmé, Clara !<br><br>
+                <strong>Vendredi 3 avril · 20h00 · 2 couverts</strong><br><br>
+                Vous recevrez un SMS de rappel la veille. À très bientôt au Petit Bistrot 🍽️
+                <div class="msg-time">23:16</div>
+              </div>
+            </div>
+
+            <!-- Input bar -->
+            <div class="ig-input">
+              <div class="ig-input-field">Message…</div>
+              <div style="color:rgba(255,255,255,.4);font-size:.9rem">🎤</div>
+              <div style="color:rgba(255,255,255,.4);font-size:.9rem">📷</div>
+              <div class="ig-send">➤</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────── PRICING ─────────────────── -->
+<section class="pricing" id="tarifs">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-eyebrow">Tarifs</div>
+      <h2 class="section-title">Simple, prévisible, sans mauvaise surprise</h2>
+      <p class="section-sub">Un abonnement mensuel fixe. Zéro commission. Zéro frais cachés. Vous gardez 100 % de vos revenus.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- Essentiel -->
+      <div class="price-card reveal">
+        <div class="price-name">Essentiel</div>
+        <div class="price-desc">Idéal pour démarrer et remplacer le carnet papier.</div>
+        <div class="price-amount">
+          <span class="price-n">49 €</span>
+          <span class="price-period">/ mois</span>
+        </div>
+        <ul class="price-features">
+          <li><span class="chk">✓</span> Réservations en ligne illimitées</li>
+          <li><span class="chk">✓</span> Page de réservation à votre image</li>
+          <li><span class="chk">✓</span> Dashboard web & mobile</li>
+          <li><span class="chk">✓</span> 2 services (midi / soir)</li>
+          <li><span class="chk">✓</span> Créneaux et capacités configurables</li>
+          <li><span class="chk">✓</span> Notifications email</li>
+          <li><span class="chk">✓</span> Support par email</li>
+        </ul>
+        <a href="#contact" class="btn-ghost" style="text-align:center;display:block;padding:.7rem">Choisir Essentiel</a>
+        <div class="price-note">14 jours d'essai gratuit, sans carte bancaire</div>
+      </div>
+
+      <!-- Croissance -->
+      <div class="price-card featured reveal">
+        <div class="popular-badge">⭐ Le plus populaire</div>
+        <div class="price-name" style="color:var(--gold)">Croissance</div>
+        <div class="price-desc">Pour les restaurants qui veulent automatiser et fidéliser.</div>
+        <div class="price-amount">
+          <span class="price-n">89 €</span>
+          <span class="price-period">/ mois</span>
+        </div>
+        <ul class="price-features">
+          <li><span class="chk">✓</span> <strong style="color:var(--ink)">Tout le plan Essentiel</strong></li>
+          <li><span class="chk">✓</span> <strong style="color:var(--ink)">Agent IA Instagram 24h/24</strong></li>
+          <li><span class="chk">✓</span> Rappels & confirmations SMS</li>
+          <li><span class="chk">✓</span> Carnet clients avec fidélité</li>
+          <li><span class="chk">✓</span> Badges VIP / Fidèle / Habitué</li>
+          <li><span class="chk">✓</span> Statistiques avancées</li>
+          <li><span class="chk">✓</span> Support prioritaire</li>
+        </ul>
+        <a href="#contact" class="btn-gold" style="text-align:center;display:block;padding:.7rem;font-size:.9rem">Choisir Croissance</a>
+        <div class="price-note">14 jours d'essai gratuit, sans carte bancaire</div>
+      </div>
+
+      <!-- Sur mesure -->
+      <div class="price-card reveal">
+        <div class="price-name">Sur mesure</div>
+        <div class="price-desc">Pour les groupes, franchises et établissements multi-sites.</div>
+        <div class="price-amount">
+          <span class="price-contact">Nous contacter</span>
+        </div>
+        <ul class="price-features">
+          <li><span class="chk">✓</span> <strong style="color:var(--ink)">Tout le plan Croissance</strong></li>
+          <li><span class="chk">✓</span> Gestion multi-établissements</li>
+          <li><span class="chk">✓</span> Intégration sur votre site existant</li>
+          <li><span class="chk">✓</span> API dédiée</li>
+          <li><span class="chk">✓</span> Onboarding personnalisé</li>
+          <li><span class="chk">✓</span> SLA garanti</li>
+          <li><span class="chk">✓</span> Gestionnaire de compte dédié</li>
+        </ul>
+        <a href="#contact" class="btn-ghost" style="text-align:center;display:block;padding:.7rem">Nous contacter</a>
+      </div>
+
+    </div>
+
+    <!-- Comparison note -->
+    <div style="margin-top:2.5rem;text-align:center;background:var(--gold-light);border-radius:12px;padding:1.5rem 2rem;border:1px solid rgba(201,169,110,.3)">
+      <p style="font-size:.92rem;color:var(--ink)">
+        <strong style="font-family:Georgia,serif">Sur TheFork</strong>, une commission de 2 € par couvert représente <strong>200 € par mois</strong> pour seulement 100 couverts.
+        Avec Tablr, vous payez <strong>89 € tout compris</strong> — et vous êtes propriétaire de vos données clients.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────── TESTIMONIALS ─────────────────── -->
+<section class="testi" id="temoignages">
+  <div class="container">
+    <div class="section-header centered">
+      <div class="section-eyebrow">Témoignages</div>
+      <h2 class="section-title">Ce que disent nos restaurateurs</h2>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"On avait TheFork depuis 3 ans. On a switché sur Tablr et le premier mois on a économisé 340 € rien qu'en commissions. Le tableau de bord est dix fois plus simple."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Sébastien Martel</div>
+            <div class="testi-role">Le Comptoir du Marais, Paris 4e</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"L'agent IA Instagram c'est ce qui m'a convaincu. Je reçois des réservations pendant mon service, pendant que je dors, pendant mes congés. C'est magique."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Amandine Voss</div>
+            <div class="testi-role">Bistrot Voss, Lyon 6e</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Le carnet clients avec les badges VIP — mes habitués adorent. Et l'interface est tellement propre qu'en salle tout le monde s'y est mis en moins d'une heure."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Romain Faure</div>
+            <div class="testi-role">Aux Quatre Saisons, Bordeaux</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────── CTA SECTION ─────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Prêt à reprendre le contrôle<br>de vos <em>réservations</em> ?</h2>
+      <p class="cta-sub">Configurez votre restaurant en 15 minutes. Aucune carte bancaire requise pour l'essai gratuit de 14 jours.</p>
+      <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap">
+        <a href="#contact" class="btn-gold btn-lg">Démarrer gratuitement →</a>
+        <a href="#contact" class="btn-outline-white btn-lg">Demander une démo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────── CONTACT ─────────────────── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner">
+
+      <div class="contact-info reveal">
+        <div class="section-eyebrow">Contact</div>
+        <h3>On vous répond dans la journée</h3>
+        <p>Une question sur l'offre, une démo, un besoin spécifique ? Écrivez-nous. Pas de bot ici — une vraie personne vous répond.</p>
+
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div>
+              <div style="font-weight:600;font-size:.88rem;color:var(--ink);margin-bottom:.1rem">Email</div>
+              <div>hello@tablr.fr</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div>
+              <div style="font-weight:600;font-size:.88rem;color:var(--ink);margin-bottom:.1rem">Siège</div>
+              <div>Paris, France</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">⏱</div>
+            <div>
+              <div style="font-weight:600;font-size:.88rem;color:var(--ink);margin-bottom:.1rem">Démo</div>
+              <div>Appel de 20 min pour voir Tablr en action sur votre restaurant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <h3 style="font-family:Georgia,serif;font-size:1.35rem;margin-bottom:1.5rem;color:var(--ink)">Commencer / Demander une démo</h3>
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Prénom *</label>
+              <input type="text" placeholder="Marie" required>
+            </div>
+            <div class="form-group">
+              <label>Nom *</label>
+              <input type="text" placeholder="Dupont" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" placeholder="marie@monrestaurant.fr" required>
+          </div>
+          <div class="form-group">
+            <label>Nom du restaurant *</label>
+            <input type="text" placeholder="Le Petit Bistrot" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ville</label>
+              <input type="text" placeholder="Paris">
+            </div>
+            <div class="form-group">
+              <label>Je suis intéressé(e) par</label>
+              <select>
+                <option>Plan Croissance (89€/mois)</option>
+                <option>Plan Essentiel (49€/mois)</option>
+                <option>Plan Sur mesure</option>
+                <option>Juste une démo</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Message (optionnel)</label>
+            <textarea placeholder="Des questions sur votre situation spécifique, vos horaires, vos services…"></textarea>
+          </div>
+          <button type="submit" class="form-submit">Envoyer ma demande →</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─────────────────── FOOTER ─────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="72" height="22" viewBox="40 30 320 62" xmlns="http://www.w3.org/2000/svg">
+          <line x1="40" y1="38" x2="360" y2="38" stroke="#C9A96E" stroke-width="1.5"/>
+          <text x="200" y="78" font-family="Georgia, serif" font-size="42" fill="#EDE8DA" text-anchor="middle" letter-spacing="8">TABLR</text>
+          <line x1="40" y1="90" x2="360" y2="90" stroke="#C9A96E" stroke-width="1.5"/>
+        </svg>
+        <p>La réservation sans commission pour restaurants indépendants. Reprenez le contrôle de votre salle.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Produit</h4>
+        <ul>
+          <li><a href="#fonctionnalites">Fonctionnalités</a></li>
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a href="#temoignages">Témoignages</a></li>
+          <li><a href="#contact">Démo gratuite</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">CGU</a></li>
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Tablr. Tous droits réservés.</p>
+      <a href="mailto:hello@tablr.fr">hello@tablr.fr</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ─────────────────── JS ─────────────────── -->
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(el => {
+    if (el.isIntersecting) {
+      el.target.classList.add('visible');
+      observer.unobserve(el.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Contact form
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('.form-submit');
+  btn.textContent = '✓ Message envoyé ! On vous répond dans la journée.';
+  btn.style.background = '#2D9E5F';
+  btn.disabled = true;
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
