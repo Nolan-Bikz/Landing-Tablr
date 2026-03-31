@@ -478,6 +478,14 @@ section{padding:5rem 0}
 }
 .testi-name{font-size:.85rem;font-weight:600;color:var(--ink)}
 .testi-role{font-size:.75rem;color:var(--muted)}
+.testi-empty{
+  text-align:center;padding:3.5rem 2rem;
+  background:var(--surface);border:2px dashed var(--border);
+  border-radius:var(--r);max-width:560px;margin:0 auto;
+}
+.testi-empty-icon{font-size:2.5rem;margin-bottom:1rem}
+.testi-empty-title{font-family:Georgia,serif;font-size:1.2rem;color:var(--ink);font-weight:600;margin-bottom:.5rem}
+.testi-empty-sub{font-size:.9rem;color:var(--muted);line-height:1.6;margin-bottom:1.75rem}
 
 
 /* ─── CTA section ─── */
@@ -1269,44 +1277,11 @@ footer{
       <div class="section-eyebrow">Témoignages</div>
       <h2 class="section-title">Ce que disent nos restaurateurs</h2>
     </div>
-    <div class="testi-grid">
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"On avait TheFork depuis 3 ans. On a switché sur Tablr et le premier mois on a économisé 340 € rien qu'en commissions. Le tableau de bord est dix fois plus simple."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">S</div>
-          <div>
-            <div class="testi-name">Sébastien Martel</div>
-            <div class="testi-role">Le Comptoir du Marais, Paris 4e</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"L'agent IA Instagram c'est ce qui m'a convaincu. Je reçois des réservations pendant mon service, pendant que je dors, pendant mes congés. C'est magique."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">A</div>
-          <div>
-            <div class="testi-name">Amandine Voss</div>
-            <div class="testi-role">Bistrot Voss, Lyon 6e</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Le carnet clients avec les badges VIP — mes habitués adorent. Et l'interface est tellement propre qu'en salle tout le monde s'y est mis en moins d'une heure."</p>
-        <div class="testi-author">
-          <div class="testi-avatar">R</div>
-          <div>
-            <div class="testi-name">Romain Faure</div>
-            <div class="testi-role">Aux Quatre Saisons, Bordeaux</div>
-          </div>
-        </div>
-      </div>
-
+    <div class="testi-empty reveal">
+      <div class="testi-empty-icon">💬</div>
+      <p class="testi-empty-title">Les premiers avis arrivent bientôt</p>
+      <p class="testi-empty-sub">Vous utilisez Tablr ? Partagez votre expérience — votre témoignage apparaîtra ici.</p>
+      <a href="mailto:hello@tablr.fr?subject=Mon%20avis%20sur%20Tablr" class="btn-gold">Laisser un avis →</a>
     </div>
   </div>
 </section>
