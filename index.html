@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tablr — La réservation sans commission pour restaurants indépendants</title>
-<meta name="description" content="Tablr vous libère des commissions par couvert. Réservations en ligne, agent IA Instagram 24h/24, rappels SMS. Abonnement fixe, zéro surprise.">
+<meta name="description" content="Tablr vous libère des commissions par couvert. Réservations en ligne, rappels SMS, gestion de salle. Abonnement fixe, zéro surprise.">
 <meta property="og:title" content="Tablr — Réservations sans commission">
-<meta property="og:description" content="Le SaaS de réservation pensé pour les restaurants indépendants. Zéro commission, agent IA Instagram, gestion complète.">
+<meta property="og:description" content="Le SaaS de réservation pensé pour les restaurants indépendants. Zéro commission, gestion complète.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -304,8 +304,9 @@ section{padding:5rem 0}
 /* ─── Features ─── */
 .features{background:var(--surface)}
 .features-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;
 }
+.features-grid .feat-card{flex:0 0 calc(33.333% - 1.34rem)}
 .feat-card{
   background:#fff;border-radius:var(--r);padding:2rem;
   border:1px solid var(--border);
@@ -350,78 +351,6 @@ section{padding:5rem 0}
 
 
 /* ─── Phone Mockup ─── */
-.phone-wrap{
-  display:flex;justify-content:center;align-items:center;
-  padding:2rem 0;
-}
-.phone{
-  width:300px;
-  background:#1a1a2e;
-  border-radius:44px;
-  padding:12px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.06),
-    0 30px 80px rgba(26,26,46,.35),
-    inset 0 1px 0 rgba(255,255,255,.08);
-  position:relative;
-}
-.phone::before{
-  content:'';position:absolute;top:18px;left:50%;transform:translateX(-50%);
-  width:80px;height:6px;background:rgba(255,255,255,.12);border-radius:100px;
-}
-.phone-screen{
-  background:#000;border-radius:34px;overflow:hidden;
-  padding-top:22px;
-}
-.ig-header{
-  background:#000;padding:.6rem 1rem .4rem;
-  display:flex;align-items:center;gap:.75rem;
-}
-.ig-back{color:#fff;font-size:1.1rem;opacity:.8}
-.ig-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;color:#fff;font-weight:700;
-}
-.ig-info{flex:1}
-.ig-name{font-size:.78rem;font-weight:600;color:#fff}
-.ig-status{font-size:.62rem;color:rgba(255,255,255,.5)}
-.ig-msgs{
-  background:#000;padding:.6rem .75rem;
-  display:flex;flex-direction:column;gap:.5rem;
-  min-height:380px;
-}
-.msg{max-width:80%;padding:.5rem .7rem;border-radius:14px;font-size:.7rem;line-height:1.4}
-.msg.from{
-  background:#262626;color:#fff;border-radius:14px 14px 14px 4px;
-  align-self:flex-start;
-}
-.msg.to{
-  background:#0095f6;color:#fff;border-radius:14px 14px 4px 14px;
-  align-self:flex-end;
-}
-.msg.ai{
-  background:linear-gradient(135deg,rgba(201,169,110,.15),rgba(201,169,110,.25));
-  color:#fff;border:1px solid rgba(201,169,110,.3);
-  border-radius:14px 14px 14px 4px;
-  align-self:flex-start;
-}
-.msg-time{font-size:.55rem;color:rgba(255,255,255,.35);margin-top:.2rem;text-align:right}
-.ai-tag{
-  font-size:.55rem;background:rgba(201,169,110,.3);color:var(--gold);
-  padding:.1rem .35rem;border-radius:100px;display:inline-block;margin-bottom:.2rem;
-}
-.ig-input{
-  background:#1c1c1c;padding:.65rem 1rem;display:flex;align-items:center;gap:.5rem;
-}
-.ig-input-field{
-  flex:1;background:#262626;border:none;border-radius:20px;
-  padding:.35rem .8rem;font-size:.68rem;color:rgba(255,255,255,.4);
-}
-.ig-send{width:24px;height:24px;background:#0095f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#fff}
-
-
 /* ─── Pricing ─── */
 .pricing{background:var(--surface)}
 .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
@@ -581,7 +510,7 @@ footer{
 /* ─── Responsive ─── */
 @media(max-width:1024px){
   .hero h1{font-size:2.6rem}
-  .features-grid{grid-template-columns:1fr 1fr}
+  .features-grid .feat-card{flex:0 0 calc(50% - 1rem)}
   .pricing-grid{grid-template-columns:1fr 1fr}
   .stats-grid{grid-template-columns:1fr 1fr;gap:1.5rem}
 }
@@ -597,7 +526,7 @@ footer{
   .footer-col{display:none}
   .testi-grid{grid-template-columns:1fr}
   .pricing-grid{grid-template-columns:1fr}
-  .features-grid{grid-template-columns:1fr}
+  .features-grid .feat-card{flex:0 0 100%}
   .form-row{grid-template-columns:1fr}
   .nav-links{display:none}
   .stats-grid{grid-template-columns:1fr 1fr}
@@ -640,9 +569,9 @@ footer{
       <div class="hero-eyebrow">
         <span>✦</span> Gardez 100% de vos revenus
       </div>
-      <h1>Réservations sans <em>commission</em>, avec IA 24h/24</h1>
+      <h1>Réservations sans <em>commission</em>, pilotées en 2 minutes</h1>
       <p class="hero-sub">
-        Tablr donne aux restaurants indépendants une page de réservation professionnelle, un agenda digital complet et un agent IA qui répond à vos DMs Instagram — sans vous prendre un centime par couvert.
+        Tablr donne aux restaurants indépendants une page de réservation professionnelle et un agenda digital complet, sans vous prendre un centime par couvert.
       </p>
       <div class="hero-actions">
         <a href="#contact" class="btn-primary btn-lg">Essayer gratuitement →</a>
@@ -956,7 +885,7 @@ footer{
       </div>
       <div>
         <div class="stat-n reveal">24/7</div>
-        <div class="stat-l">Agent IA Instagram actif</div>
+        <div class="stat-l">Réservations en ligne</div>
       </div>
       <div>
         <div class="stat-n reveal">&lt; 15 min</div>
@@ -991,12 +920,6 @@ footer{
         <div class="feat-icon">🔗</div>
         <div class="feat-title">Page de réservation publique</div>
         <p class="feat-body">Une URL à votre image à partager sur Instagram, Google ou votre site. Vos clients réservent en moins de 60 secondes, sans application à télécharger.</p>
-      </div>
-
-      <div class="feat-card reveal">
-        <div class="feat-icon">🤖</div>
-        <div class="feat-title">Agent IA Instagram</div>
-        <p class="feat-body">L'IA répond automatiquement à vos DMs Instagram pour prendre des réservations, répondre aux questions sur les horaires et envoyer le lien de réservation — même à 23h.</p>
       </div>
 
       <div class="feat-card reveal">
@@ -1093,97 +1016,6 @@ footer{
 </section>
 
 
-<!-- ─────────────────── SHOWCASE : Instagram AI ─────────────────── -->
-<section class="showcase" style="background:var(--surface)">
-  <div class="container">
-    <div class="showcase-inner reverse">
-      <div class="showcase-text">
-        <div class="section-eyebrow">Agent IA Instagram</div>
-        <h2 class="section-title">Votre meilleur serveur ne dort jamais</h2>
-        <p class="section-sub" style="margin-bottom:1rem">
-          Un client vous envoie un DM Instagram à 23h pour réserver ? L'IA Tablr répond, prend les informations, vérifie les disponibilités et confirme la réservation — sans que vous n'ayez à lever le petit doigt.
-        </p>
-        <ul class="showcase-points">
-          <li><span class="chk">✓</span> Connexion sécurisée à votre compte Instagram Pro</li>
-          <li><span class="chk">✓</span> Détecte automatiquement les demandes de réservation</li>
-          <li><span class="chk">✓</span> Connaît vos horaires, services et disponibilités en temps réel</li>
-          <li><span class="chk">✓</span> La réservation apparaît instantanément dans votre dashboard</li>
-          <li><span class="chk">✓</span> Vous gardez la main et pouvez intervenir à tout moment</li>
-        </ul>
-      </div>
-
-      <!-- Phone mockup -->
-      <div class="phone-wrap reveal">
-        <div class="phone">
-          <div class="phone-screen">
-            <!-- Instagram header -->
-            <div class="ig-header">
-              <span class="ig-back">‹</span>
-              <div class="ig-avatar">LB</div>
-              <div class="ig-info">
-                <div class="ig-name">Le Petit Bistrot</div>
-                <div class="ig-status">Répond habituellement sous quelques minutes</div>
-              </div>
-              <span style="color:#fff;font-size:1rem;opacity:.6">📞</span>
-            </div>
-
-            <!-- Messages -->
-            <div class="ig-msgs">
-              <div class="msg from">
-                Bonsoir, est-ce que vous avez une table pour 2 vendredi soir ?
-                <div class="msg-time">23:14</div>
-              </div>
-
-              <div class="msg ai">
-                <div class="ai-tag">✦ Tablr IA</div><br>
-                Bonsoir ! Avec plaisir 😊<br><br>
-                Nous avons encore de la disponibilité vendredi soir. Quel créneau vous conviendrait ?<br><br>
-                • 19h30 – 2 places<br>
-                • 20h00 – 2 places<br>
-                • 20h30 – 2 places
-                <div class="msg-time">23:14</div>
-              </div>
-
-              <div class="msg from">
-                20h00 ça serait parfait !
-                <div class="msg-time">23:15</div>
-              </div>
-
-              <div class="msg ai">
-                <div class="ai-tag">✦ Tablr IA</div><br>
-                Parfait ! Pour confirmer, pouvez-vous m'indiquer votre prénom et un numéro de téléphone ?
-                <div class="msg-time">23:15</div>
-              </div>
-
-              <div class="msg from">
-                Clara Fontaine, 06 12 34 56 78
-                <div class="msg-time">23:16</div>
-              </div>
-
-              <div class="msg ai">
-                <div class="ai-tag">✦ Tablr IA</div><br>
-                ✅ C'est confirmé, Clara !<br><br>
-                <strong>Vendredi 3 avril · 20h00 · 2 couverts</strong><br><br>
-                Vous recevrez un SMS de rappel la veille. À très bientôt au Petit Bistrot 🍽️
-                <div class="msg-time">23:16</div>
-              </div>
-            </div>
-
-            <!-- Input bar -->
-            <div class="ig-input">
-              <div class="ig-input-field">Message…</div>
-              <div style="color:rgba(255,255,255,.4);font-size:.9rem">🎤</div>
-              <div style="color:rgba(255,255,255,.4);font-size:.9rem">📷</div>
-              <div class="ig-send">➤</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <!-- ─────────────────── PRICING ─────────────────── -->
 <section class="pricing" id="tarifs">
   <div class="container">
@@ -1225,7 +1057,6 @@ footer{
         </div>
         <ul class="price-features">
           <li><span class="chk">✓</span> <strong style="color:var(--ink)">Tout le plan Essentiel</strong></li>
-          <li><span class="chk">✓</span> <strong style="color:var(--ink)">Agent IA Instagram 24h/24</strong></li>
           <li><span class="chk">✓</span> Rappels & confirmations SMS</li>
           <li><span class="chk">✓</span> Carnet clients avec fidélité</li>
           <li><span class="chk">✓</span> Badges VIP / Fidèle / Habitué</li>
