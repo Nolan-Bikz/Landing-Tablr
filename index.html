@@ -353,7 +353,7 @@ section{padding:5rem 0}
 /* ─── Phone Mockup ─── */
 /* ─── Pricing ─── */
 .pricing{background:var(--surface)}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem;max-width:820px;margin-left:auto;margin-right:auto}
 .price-card{
   background:#fff;border-radius:var(--r);padding:2rem;
   border:1px solid var(--border);
@@ -380,7 +380,6 @@ section{padding:5rem 0}
 }
 .price-n{font-family:Georgia,serif;font-size:2.6rem;color:var(--ink)}
 .price-period{font-size:.82rem;color:var(--muted)}
-.price-contact{font-family:Georgia,serif;font-size:2rem;font-style:italic;color:var(--gold)}
 .price-features{list-style:none;flex:1;display:flex;flex-direction:column;gap:.65rem;margin-bottom:2rem}
 .price-features li{
   display:flex;align-items:flex-start;gap:.65rem;font-size:.85rem;color:var(--muted);
@@ -511,7 +510,7 @@ footer{
 @media(max-width:1024px){
   .hero h1{font-size:2.6rem}
   .features-grid .feat-card{flex:0 0 calc(50% - 1rem)}
-  .pricing-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:repeat(2,1fr)}
   .stats-grid{grid-template-columns:1fr 1fr;gap:1.5rem}
 }
 @media(max-width:768px){
@@ -1030,9 +1029,10 @@ footer{
       <!-- Essentiel -->
       <div class="price-card reveal">
         <div class="price-name">Essentiel</div>
-        <div class="price-desc">Idéal pour démarrer et remplacer le carnet papier.</div>
+        <div class="price-desc">Idéal pour remplacer le carnet papier et digitaliser ses réservations.</div>
         <div class="price-amount">
-          <span class="price-n">...</span>
+          <span class="price-n">49€</span>
+          <span class="price-period">/mois</span>
         </div>
         <ul class="price-features">
           <li><span class="chk">✓</span> Réservations en ligne illimitées</li>
@@ -1047,43 +1047,27 @@ footer{
         <div class="price-note">14 jours d'essai gratuit, sans carte bancaire</div>
       </div>
 
-      <!-- Croissance -->
+      <!-- Pro -->
       <div class="price-card featured reveal">
         <div class="popular-badge">⭐ Le plus populaire</div>
-        <div class="price-name" style="color:var(--gold)">Croissance</div>
-        <div class="price-desc">Pour les restaurants qui veulent automatiser et fidéliser.</div>
+        <div class="price-name" style="color:var(--gold)">Pro</div>
+        <div class="price-desc">Pour les restaurants qui veulent fidéliser et réduire les no-shows.</div>
         <div class="price-amount">
-          <span class="price-n">...</span>
+          <span class="price-n">79€</span>
+          <span class="price-period">/mois</span>
         </div>
         <ul class="price-features">
           <li><span class="chk">✓</span> <strong style="color:var(--ink)">Tout le plan Essentiel</strong></li>
-          <li><span class="chk">✓</span> Rappels & confirmations SMS</li>
-          <li><span class="chk">✓</span> Carnet clients avec fidélité</li>
+          <li><span class="chk">✓</span> <strong style="color:var(--ink)">150 SMS/mois inclus</strong> (rappels + confirmations)</li>
+          <li><span class="chk">✓</span> SMS supplémentaires : 0,10€/SMS</li>
+          <li><span class="chk">✓</span> Carnet clients & fidélité</li>
           <li><span class="chk">✓</span> Badges VIP / Fidèle / Habitué</li>
+          <li><span class="chk">✓</span> Plan de salle interactif</li>
           <li><span class="chk">✓</span> Statistiques avancées</li>
           <li><span class="chk">✓</span> Support prioritaire</li>
         </ul>
-        <a href="#contact" class="btn-gold" style="text-align:center;display:block;padding:.7rem;font-size:.9rem">Choisir Croissance</a>
+        <a href="#contact" class="btn-gold" style="text-align:center;display:block;padding:.7rem;font-size:.9rem">Choisir Pro</a>
         <div class="price-note">14 jours d'essai gratuit, sans carte bancaire</div>
-      </div>
-
-      <!-- Sur mesure -->
-      <div class="price-card reveal">
-        <div class="price-name">Sur mesure</div>
-        <div class="price-desc">Pour les groupes, franchises et établissements multi-sites.</div>
-        <div class="price-amount">
-          <span class="price-contact">Nous contacter</span>
-        </div>
-        <ul class="price-features">
-          <li><span class="chk">✓</span> <strong style="color:var(--ink)">Tout le plan Croissance</strong></li>
-          <li><span class="chk">✓</span> Gestion multi-établissements</li>
-          <li><span class="chk">✓</span> Intégration sur votre site existant</li>
-          <li><span class="chk">✓</span> API dédiée</li>
-          <li><span class="chk">✓</span> Onboarding personnalisé</li>
-          <li><span class="chk">✓</span> SLA garanti</li>
-          <li><span class="chk">✓</span> Gestionnaire de compte dédié</li>
-        </ul>
-        <a href="#contact" class="btn-ghost" style="text-align:center;display:block;padding:.7rem">Nous contacter</a>
       </div>
 
     </div>
@@ -1195,9 +1179,8 @@ footer{
             <div class="form-group">
               <label>Je suis intéressé(e) par</label>
               <select>
-                <option>Plan Croissance</option>
-                <option>Plan Essentiel</option>
-                <option>Plan Sur mesure</option>
+                <option>Plan Pro — 79€/mois</option>
+                <option>Plan Essentiel — 49€/mois</option>
                 <option>Juste une démo</option>
               </select>
             </div>
