@@ -1,0 +1,8 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+dist/
+*.log
+prompt-claude-code-gestion-salle_1.md

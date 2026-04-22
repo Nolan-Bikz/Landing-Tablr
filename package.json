@@ -2,10 +2,13 @@
   "name": "landing-tablr",
   "version": "1.0.0",
   "scripts": {
-    "start": "serve . -p $PORT"
+    "start": "node server.js"
   },
   "dependencies": {
-    "serve": "^14.2.6"
+    "compression": "^1.7.4",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0"
   },
   "description": "",
   "main": "index.js",
